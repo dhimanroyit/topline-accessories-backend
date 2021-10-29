@@ -5,6 +5,7 @@ const userRouter = require('./resources/user/userRouter');
 const sliderRouter = require('./resources/slider/sliderRouter');
 const aboutRouter = require('./resources/about/aboutRouter');
 const teamRouter = require('./resources/team/teamRouter');
+const productRouter = require('./resources/products/productRouter');
 
 const app = express();
 env.config();
@@ -14,6 +15,7 @@ app.use('/users', userRouter);
 app.use('/sliders', sliderRouter);
 app.use('/about', aboutRouter);
 app.use('/teams', teamRouter);
+app.use('/products', productRouter);
 
 app.get('/', (req, res) => {
   res.send('welcome to topline accessories');
