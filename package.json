@@ -4,8 +4,8 @@
   "description": "it's a germents accessories selles company",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev:start": "nodemon index"
+    "start": "node src/index.js",
+    "dev:start": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +18,8 @@
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
 }
