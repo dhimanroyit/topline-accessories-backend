@@ -3,6 +3,7 @@ const env = require('dotenv');
 
 const app = express();
 env.config();
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('welcome to topline accessories');
