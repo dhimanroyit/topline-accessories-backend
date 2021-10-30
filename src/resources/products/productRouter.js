@@ -1,17 +1,18 @@
 const { Router } = require('express');
 const productControllers = require('./productControllers');
+const { protect } = require('../../middleware/auth');
 
 const router = Router();
 
 router
   .route('/')
   .get(productControllers.getMany)
-  .post(productControllers.createOne);
+  .post(protect, productControllers.createOne);
 
 router
   .route('/:id')
   .get(productControllers.getOne)
-  .put(productControllers.updateOne)
-  .delete(productControllers.removeOne);
+  .put(protect, productControllers.updateOne)
+  .delete(protect, productControllers.removeOne);
 
 module.exports = router;
