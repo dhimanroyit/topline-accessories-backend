@@ -7,6 +7,7 @@ const aboutRouter = require('./resources/about/aboutRouter');
 const teamRouter = require('./resources/team/teamRouter');
 const productRouter = require('./resources/products/productRouter');
 const galleryPhotoRouter = require('./resources/galleryPhoto/galleryPhotoRouter');
+const galleryVideoRouter = require('./resources/galleryVideo/galleryVideoRouter');
 
 const app = express();
 env.config();
@@ -18,6 +19,7 @@ app.use('/about', aboutRouter);
 app.use('/teams', teamRouter);
 app.use('/products', productRouter);
 app.use('/gallery/photos', galleryPhotoRouter);
+app.use('/gallery/videos', galleryVideoRouter);
 
 app.get('/', (req, res) => {
   res.send('welcome to topline accessories');
