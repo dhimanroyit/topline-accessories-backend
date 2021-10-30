@@ -9,12 +9,15 @@ const productRouter = require('./resources/products/productRouter');
 const galleryPhotoRouter = require('./resources/galleryPhoto/galleryPhotoRouter');
 const galleryVideoRouter = require('./resources/galleryVideo/galleryVideoRouter');
 const partnerRouter = require('./resources/partner/partnerRouter');
+const { signup, signin, protect } = require('./middleware/auth');
 
 const app = express();
 env.config();
 app.use(express.json());
 
-app.use('/users', userRouter);
+app.use('/signup', signup);
+app.use('/signin', signin);
+app.use('/users', protect, userRouter);
 app.use('/sliders', sliderRouter);
 app.use('/about', aboutRouter);
 app.use('/teams', teamRouter);
