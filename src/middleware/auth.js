@@ -22,10 +22,6 @@ const signup = async (req, res) => {
     return res.status(400).send({ message: 'need email and password' });
   }
   try {
-    const userEmail = User.findOne({ email: req.body.email });
-    if (userEmail) {
-      return res.status(400).send({ message: 'email already in use' });
-    }
     const user = await User.create(req.body);
     const token = generateToken(user);
     return res.status(201).send({ token });
