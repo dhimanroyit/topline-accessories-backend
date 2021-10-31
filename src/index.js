@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('dotenv');
+const cors = require('cors');
 const dbConnect = require('./db/dbConnect');
 const userRouter = require('./resources/user/userRouter');
 const sliderRouter = require('./resources/slider/sliderRouter');
@@ -14,6 +15,7 @@ const { signup, signin, protect } = require('./middleware/auth');
 const app = express();
 env.config();
 app.use(express.json());
+app.use(cors());
 
 app.use('/signup', signup);
 app.use('/signin', signin);
