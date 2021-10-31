@@ -15,7 +15,7 @@ const productControllers = new Schema(
       required: true,
     },
     images: {
-      type: 'array',
+      type: 'string',
       required: true,
     },
   },
