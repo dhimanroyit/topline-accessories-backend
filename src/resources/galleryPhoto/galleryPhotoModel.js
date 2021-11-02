@@ -14,6 +14,6 @@ const gallerySchema = new Schema(
   { timestamps: true }
 );
 
-const GalleryVideo = model('GalleryVideo', gallerySchema);
+const GalleryPhoto = model('GalleryPhoto', gallerySchema);
 
-module.exports = GalleryVideo;
+module.exports = GalleryPhoto;
