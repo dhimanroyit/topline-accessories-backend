@@ -7,7 +7,7 @@ const gallerySchema = new Schema(
       required: true,
     },
     image: {
-      type: 'string',
+      videoLink: 'string',
       required: true,
     },
   },
