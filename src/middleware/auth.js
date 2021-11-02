@@ -81,6 +81,7 @@ const protect = async (req, res, next) => {
     .exec();
 
   if (!user) {
+    console.log('user err');
     return res.status(401).end();
   }
 
