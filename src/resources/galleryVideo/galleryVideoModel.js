@@ -6,8 +6,8 @@ const gallerySchema = new Schema(
       type: 'string',
       required: true,
     },
-    image: {
-      videoLink: 'string',
+    videoLink: {
+      type: 'string',
       required: true,
     },
   },
