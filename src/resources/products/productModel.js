@@ -14,10 +14,6 @@ const productControllers = new Schema(
       type: 'string',
       required: true,
     },
-    images: {
-      type: 'string',
-      required: true,
-    },
   },
   { timestamps: true }
 );
