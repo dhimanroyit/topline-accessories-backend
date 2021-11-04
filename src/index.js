@@ -17,16 +17,16 @@ env.config();
 app.use(express.json());
 app.use(cors());
 
-app.use('/signup', signup);
-app.use('/signin', signin);
-app.use('/users', protect, userRouter);
-app.use('/sliders', sliderRouter);
-app.use('/about', aboutRouter);
-app.use('/teams', teamRouter);
-app.use('/products', productRouter);
-app.use('/gallery/photos', galleryPhotoRouter);
-app.use('/gallery/videos', galleryVideoRouter);
-app.use('/partners', partnerRouter);
+app.use('/api/v1/signup', signup);
+app.use('/api/v1/signin', signin);
+app.use('/api/v1/users', protect, userRouter);
+app.use('/api/v1/sliders', sliderRouter);
+app.use('/api/v1/about', aboutRouter);
+app.use('/api/v1/teams', teamRouter);
+app.use('/api/v1/products', productRouter);
+app.use('/api/v1/gallery/photos', galleryPhotoRouter);
+app.use('/api/v1/gallery/videos', galleryVideoRouter);
+app.use('/api/v1/partners', partnerRouter);
 
 app.get('/', (req, res) => {
   res.send('welcome to topline accessories');
