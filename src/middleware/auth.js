@@ -1,96 +1,88 @@
+const userModel = require('../resources/user/userModel');
+const responseHandler = require('../utils/responseHandler');
+const Unauthorized = require('../utils/error/Unauthorized');
+const NotFound = require('../utils/error/NotFound');
+const BadRequest = require('../utils/error/BadRequest');
 const jwt = require('jsonwebtoken');
-const env = require('dotenv');
-const User = require('../resources/user/userModel');
+const dotEnv = require('dotenv');
 
-env.config();
+dotEnv.config();
 
-const generateToken = (user) =>
-  jwt.sign({ id: user.id }, process.env.JWT_SECRETS_KEY, {
-    expiresIn: '3000s',
+// token generate function
+const newTokenGenerate = (user) => {
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION,
   });
-
-const verifyToken = (token) =>
-  new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRETS_KEY, (err, payload) => {
-      if (err) return reject(err);
+};
+// token verify function
+const verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+      if (err) {
+        return reject(err);
+      }
       resolve(payload);
     });
   });
+};
+// user admin authentication function
+const checkRole = (roles) => async (req, res, next) => {
+  !roles.includes(req.user.role)
+    ? next(new Unauthorized('user not admin'))
+    : next();
+};
 
-const signup = async (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    return res.status(400).send({ message: 'need email and password' });
-  }
+const emailVerify = async (req, res, next) => {
   try {
-    const user = await User.create(req.body);
-    const token = generateToken(user);
-    return res.status(201).send({ token });
-  } catch (e) {
-    return res.status(500).end();
+    const user = await userModel.findOne({ email: req.body.email });
+    if (user) {
+      throw new BadRequest('email already use');
+    }
+    next();
+  } catch (err) {
+    next(err);
   }
 };
 
-const signin = async (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    return res.status(400).send({ message: 'need email and password' });
-  }
-
-  const invalid = { message: 'Invalid email and passoword combination' };
-
+const signIn = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
+    const user = await userModel
+      .findOne({ email: req.body.email })
       .select('email password')
       .exec();
-
-    if (!user) {
-      return res.status(401).send(invalid);
-    }
-
-    const match = await user.checkPassword(req.body.password);
-
-    if (!match) {
-      return res.status(401).send(invalid);
-    }
-
-    const token = generateToken(user);
-    return res.status(201).send({ token });
-  } catch (e) {
-    console.error(e);
-    res.status(500).end();
+    if (!user) throw new NotFound('user not found');
+    const isPassMatch = await user.checkPass(req.body.password);
+    if (!isPassMatch) throw new Unauthorized('password not match');
+    const token = newTokenGenerate(user);
+    const response = responseHandler(200, 'login successfully', { token });
+    return res.status(response.statusCode).json(response).end();
+  } catch (err) {
+    console.log(err);
+    next(err);
   }
 };
 
 const protect = async (req, res, next) => {
   const bearer = req.headers.authorization;
-
   if (!bearer || !bearer.startsWith('Bearer ')) {
-    return res.status(401).end();
+    const err = new Unauthorized('token not found');
+    return next(err);
   }
-
   const token = bearer.split('Bearer ')[1].trim();
-  let payload;
+
   try {
-    payload = await verifyToken(token);
-  } catch (e) {
-    return res.status(401).end();
+    const payload = await verifyToken(token);
+    if (!payload) throw new Unauthorized('token not verify');
+    const user = await userModel
+      .findById(payload.id)
+      .select('-password')
+      .lean()
+      .exec();
+    if (!user) throw new Unauthorized('user not authorized');
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  const user = await User.findById(payload.id)
-    .select('-password')
-    .lean()
-    .exec();
-
-  if (!user) {
-    console.log('user err');
-    return res.status(401).end();
-  }
-
-  req.user = user;
-  next();
 };
-
-module.exports = {
-  signin,
-  signup,
-  protect,
-};
+module.exports = { checkRole, signIn, emailVerify, protect };
