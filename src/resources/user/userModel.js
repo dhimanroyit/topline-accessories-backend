@@ -11,6 +11,10 @@ const userSchema = new Schema(
       type: 'string',
       require: [true, 'password mast be required'],
     },
+    role: {
+      type: String,
+      enum: ['admin', 'editor'],
+    },
   },
   { timestamp: true }
 );
@@ -39,5 +43,5 @@ userSchema.methods.checkPassword = function (password) {
     });
   });
 };
-const User = model('User', userSchema);
-module.exports = User;
+
+module.exports = model('User', userSchema);

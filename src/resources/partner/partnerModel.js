@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const partnerSchema = new Schema(
+const partnerSchema = new mongoose.Schema(
   {
     title: {
       type: 'string',
@@ -10,10 +10,12 @@ const partnerSchema = new Schema(
       type: 'string',
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
 
-const Partner = model('Partner', partnerSchema);
-
-module.exports = Partner;
+module.exports = mongoose.model('Partner', partnerSchema);

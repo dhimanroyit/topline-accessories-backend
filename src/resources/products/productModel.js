@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const productControllers = new Schema(
+const productSchema = new mongoose.Schema(
   {
     title: {
       type: 'string',
@@ -14,10 +14,12 @@ const productControllers = new Schema(
       type: 'string',
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
 
-const Product = model('Product', productControllers);
-
-module.exports = Product;
+module.exports = mongoose.model('Product', productSchema);

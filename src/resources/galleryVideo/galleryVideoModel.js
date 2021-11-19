@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const gallerySchema = new Schema(
+const gallerySchema = new mongoose.Schema(
   {
     title: {
       type: 'string',
@@ -10,10 +10,12 @@ const gallerySchema = new Schema(
       type: 'string',
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
 
-const GalleryVideo = model('GalleryVideo', gallerySchema);
-
-module.exports = GalleryVideo;
+module.exports = mongoose.model('GalleryVideo', gallerySchema);

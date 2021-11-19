@@ -1,18 +1,18 @@
 const { Router } = require('express');
-const aboutControllers = require('./aboutControllers');
+const controllers = require('./aboutControllers');
 const { protect } = require('../../middleware/auth');
 
 const router = Router();
 
 router
   .route('/')
-  .get(aboutControllers.getMany)
-  .post(protect, aboutControllers.createOne);
+  .get(controllers.getAllAbout)
+  .post(protect, controllers.createAbout);
 
 router
   .route('/:id')
-  .get(aboutControllers.getOne)
-  .put(protect, aboutControllers.updateOne)
-  .delete(protect, aboutControllers.removeOne);
+  .get(controllers.getAbout)
+  .put(protect, controllers.updateAbout)
+  .delete(protect, controllers.removeAbout);
 
 module.exports = router;

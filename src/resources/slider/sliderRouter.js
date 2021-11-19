@@ -1,18 +1,18 @@
 const { Router } = require('express');
-const sliderControllers = require('./sliderControllers');
+const controllers = require('./sliderControllers');
 const { protect } = require('../../middleware/auth');
 
 const router = Router();
 
 router
   .route('/')
-  .get(sliderControllers.getMany)
-  .post(protect, sliderControllers.createOne);
+  .get(controllers.getAllSlider)
+  .post(protect, controllers.createSlider);
 
 router
   .route('/:id')
-  .get(sliderControllers.getOne)
-  .put(protect, sliderControllers.updateOne)
-  .delete(protect, sliderControllers.removeOne);
+  .get(controllers.getSlider)
+  .put(protect, controllers.updateSlider)
+  .delete(protect, controllers.removeSlider);
 
 module.exports = router;

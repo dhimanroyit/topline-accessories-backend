@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const teamControllers = new Schema(
+const teamControllers = new mongoose.Schema(
   {
     name: {
       type: 'string',
@@ -18,10 +18,12 @@ const teamControllers = new Schema(
       type: 'string',
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
 
-const Team = model('Team', teamControllers);
-
-module.exports = Team;
+module.exports = mongoose.model('Team', teamControllers);

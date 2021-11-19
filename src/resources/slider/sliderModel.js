@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const sliderSchema = new Schema(
+const sliderSchema = new mongoose.Schema(
   {
     title: {
       type: 'string',
@@ -14,10 +14,12 @@ const sliderSchema = new Schema(
       type: 'string',
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
 
-const Slider = model('Slider', sliderSchema);
-
-module.exports = Slider;
+module.exports = mongoose.model('Slider', sliderSchema);

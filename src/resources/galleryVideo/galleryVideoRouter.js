@@ -1,18 +1,18 @@
 const { Router } = require('express');
-const GalleryVideoControllers = require('./galleryVideoControllers');
+const controllers = require('./galleryVideoControllers');
 const { protect } = require('../../middleware/auth');
 
 const router = Router();
 
 router
   .route('/')
-  .get(GalleryVideoControllers.getMany)
-  .post(protect, GalleryVideoControllers.createOne);
+  .get(controllers.getAllGalleryVideo)
+  .post(protect, controllers.createGalleryVideo);
 
 router
   .route('/:id')
-  .get(GalleryVideoControllers.getOne)
-  .put(protect, GalleryVideoControllers.updateOne)
-  .delete(protect, GalleryVideoControllers.removeOne);
+  .get(controllers.getGalleryVideo)
+  .put(protect, controllers.updateGalleryVideo)
+  .delete(protect, controllers.removeGalleryVideo);
 
 module.exports = router;
