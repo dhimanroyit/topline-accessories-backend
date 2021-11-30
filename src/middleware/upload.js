@@ -24,7 +24,17 @@ const upload = multer({
     fileSize: 1000000,
   },
   fileFilter: (req, file, cb) => {
-    if (file.fieldname === 'profile') {
+    if (file.fieldname === 'sliderImg') {
+      if (
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/jpeg'
+      ) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only .jpg, .png or .jpeg format allowed!'));
+      }
+    } else if (file.fieldname === 'profile') {
       if (file.mimetype === 'application/pdf') {
         cb(null, true);
       } else {
