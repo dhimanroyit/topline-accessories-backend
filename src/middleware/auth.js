@@ -1,4 +1,4 @@
-const userModel = require('../resources/user/userModel');
+const UserModel = require('../resources/user/userModel');
 const responseHandler = require('../utils/responseHandler');
 const Unauthorized = require('../utils/error/Unauthorized');
 const NotFound = require('../utils/error/NotFound');
@@ -10,14 +10,14 @@ dotEnv.config();
 
 // token generate function
 const newTokenGenerate = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRETS_KEY, {
     expiresIn: process.env.JWT_EXPIRATION,
   });
 };
 // token verify function
 const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+    jwt.verify(token, process.env.JWT_SECRETS_KEY, (err, payload) => {
       if (err) {
         return reject(err);
       }
@@ -34,7 +34,7 @@ const checkRole = (roles) => async (req, res, next) => {
 
 const emailVerify = async (req, res, next) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    const user = await UserModel.findOne({ email: req.body.email });
     if (user) {
       throw new BadRequest('email already use');
     }
@@ -46,8 +46,7 @@ const emailVerify = async (req, res, next) => {
 
 const signIn = async (req, res, next) => {
   try {
-    const user = await userModel
-      .findOne({ email: req.body.email })
+    const user = await UserModel.findOne({ email: req.body.email })
       .select('email password')
       .exec();
     if (!user) throw new NotFound('user not found');
@@ -73,8 +72,7 @@ const protect = async (req, res, next) => {
   try {
     const payload = await verifyToken(token);
     if (!payload) throw new Unauthorized('token not verify');
-    const user = await userModel
-      .findById(payload.id)
+    const user = await UserModel.findById(payload.id)
       .select('-password')
       .lean()
       .exec();
