@@ -12,6 +12,7 @@ const galleryVideoRouter = require('./resources/galleryVideo/galleryVideoRouter'
 const partnerRouter = require('./resources/partner/partnerRouter');
 const businessProfileRouter = require('./resources/businessProfile/businessProfileRouter');
 const callInfoRouter = require('./resources/callInfo/callInfoRouter');
+const socialRouter = require('./resources/social/socialRouter');
 const { signIn, protect } = require('./middleware/auth');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -26,6 +27,7 @@ app.use(`${URI}/public`, express.static('uploads'));
 app.use(`${URI}/signin`, signIn);
 app.use(`${URI}/users`, userRouter);
 app.use(`${URI}/callinfos`, callInfoRouter);
+app.use(`${URI}/socials`, socialRouter);
 app.use(`${URI}/sliders`, sliderRouter);
 app.use(`${URI}/about`, aboutRouter);
 app.use(`${URI}/teams`, teamRouter);
