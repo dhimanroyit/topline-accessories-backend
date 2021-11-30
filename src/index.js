@@ -23,7 +23,7 @@ app.use(cors());
 
 const URI = '/api/v1';
 
-app.use(`${URI}/public`, express.static('uploads'));
+app.use(`${URI}/public/upload`, express.static('uploads'));
 app.use(`${URI}/signin`, signIn);
 app.use(`${URI}/users`, userRouter);
 app.use(`${URI}/callinfos`, callInfoRouter);

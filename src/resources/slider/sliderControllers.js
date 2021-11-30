@@ -1,10 +1,18 @@
-const Slider = require('./sliderModel');
+const SliderModel = require('./sliderModel');
 const crudOperations = require('../../utils/crudOperations');
 
-const _slider = crudOperations(Slider, 'slider');
+const _slider = crudOperations(SliderModel, 'slider');
 
 const createSlider = async (req, res, next) => {
-  _slider.createOne({ ...req.body, createdBy: req.user._id }, res, next);
+  const imgUrl = `${req.protocol}://${req.get('host')}/api/v1/public/upload/${
+    req.file.filename
+  }`;
+  const sliderBody = {
+    ...req.body,
+    sliderImg: imgUrl,
+    createdBy: req.user._id,
+  };
+  _slider.createOne({ ...sliderBody }, res, next);
 };
 
 const getSlider = async (req, res, next) => {

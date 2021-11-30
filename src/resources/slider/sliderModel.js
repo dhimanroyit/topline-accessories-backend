@@ -4,11 +4,9 @@ const sliderSchema = new mongoose.Schema(
   {
     title: {
       type: 'string',
-      required: true,
     },
     description: {
       type: 'string',
-      required: true,
     },
     sliderImg: {
       type: 'string',
@@ -18,6 +16,7 @@ const sliderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    __v: { type: Number, select: false },
   },
   { timestamps: true }
 );

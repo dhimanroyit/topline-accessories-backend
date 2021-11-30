@@ -1,13 +1,14 @@
 const { Router } = require('express');
 const controllers = require('./sliderControllers');
 const { protect } = require('../../middleware/auth');
+const upload = require('../../middleware/upload');
 
 const router = Router();
 
 router
   .route('/')
   .get(controllers.getAllSlider)
-  .post(protect, controllers.createSlider);
+  .post(protect, upload.single('sliderImg'), controllers.createSlider);
 
 router
   .route('/:id')
