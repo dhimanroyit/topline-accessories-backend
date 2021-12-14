@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const gallerySchema = new mongoose.Schema(
   {
     title: {
-      type: 'string',
+      type: String,
       required: true,
     },
-    image: {
-      type: 'string',
+    galleryImg: {
+      type: String,
       required: true,
     },
     createdBy: {
