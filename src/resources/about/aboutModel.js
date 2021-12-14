@@ -10,7 +10,7 @@ const aboutSchema = new mongoose.Schema(
       type: 'string',
       required: true,
     },
-    img: {
+    aboutImg: {
       type: 'string',
       required: true,
     },
