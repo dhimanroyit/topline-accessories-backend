@@ -1,10 +1,10 @@
 const express = require('express');
 const { createProfile } = require('./businessProfileController');
-const upload = require('../../middleware/upload');
+// const upload = require('../../middleware/upload');
 
 const router = express.Router();
-
-router.route('/').post(upload.single('profile'), createProfile);
+// upload.single('profile'),
+router.route('/').post(createProfile);
 
 // router.route('/:id').get().put().delete();
 

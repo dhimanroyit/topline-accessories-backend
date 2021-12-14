@@ -1,18 +1,18 @@
 const { Router } = require('express');
-const controllers = require('./galleryPhotoControllers');
+const controllers = require('./addressControllers');
 const { protect } = require('../../middleware/auth');
 
 const router = Router();
 
 router
   .route('/')
-  .get(controllers.getAllGalleryPhoto)
-  .post(protect, controllers.createGalleryPhoto);
+  .get(controllers.getAllAddress)
+  .post(protect, controllers.createAddress);
 
 router
   .route('/:id')
-  .get(controllers.getGalleryPhoto)
-  .put(protect, controllers.updateGalleryPhoto)
-  .delete(protect, controllers.removeGalleryPhoto);
+  .get(controllers.getAddress)
+  .put(protect, controllers.updateAddress)
+  .delete(protect, controllers.removeAddress);
 
 module.exports = router;

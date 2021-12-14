@@ -13,6 +13,7 @@ const partnerRouter = require('./resources/partner/partnerRouter');
 const businessProfileRouter = require('./resources/businessProfile/businessProfileRouter');
 const callInfoRouter = require('./resources/callInfo/callInfoRouter');
 const socialRouter = require('./resources/social/socialRouter');
+const addressRouter = require('./resources/address/addressRouter');
 const { signIn, protect } = require('./middleware/auth');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -35,6 +36,7 @@ app.use(`${URI}/products`, productRouter);
 app.use(`${URI}/gallery/photos`, galleryPhotoRouter);
 app.use(`${URI}/gallery/videos`, galleryVideoRouter);
 app.use(`${URI}/partners`, partnerRouter);
+app.use(`${URI}/address`, addressRouter);
 app.use(`${URI}/businessprofile`, businessProfileRouter);
 
 app.get('/', (req, res, next) => {
