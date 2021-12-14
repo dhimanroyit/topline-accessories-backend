@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema(
       type: 'string',
       required: true,
     },
-    thumb: {
+    productImg: {
       type: 'string',
       required: true,
     },
