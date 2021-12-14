@@ -6,7 +6,7 @@ const partnerSchema = new mongoose.Schema(
       type: 'string',
       required: true,
     },
-    img: {
+    partnerImg: {
       type: 'string',
       required: true,
     },
