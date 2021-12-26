@@ -9,9 +9,7 @@ const createSlider = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('slider image must be upload'));
   } else if (req.file) {
-    const sliderImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const sliderImg = `/public/upload/${req.file.originalname}`;
 
     const sliderBody = {
       ...req.body,
@@ -39,9 +37,7 @@ const updateSlider = async (req, res, next) => {
         if (slider.sliderImg) {
           removeUploadFile(slider.sliderImg);
         }
-        sliderImg = `${req.protocol}://${req.get(
-          'host'
-        )}/api/v1/public/upload/${req.file.originalname}`;
+        sliderImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

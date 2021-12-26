@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const sliderSchema = new mongoose.Schema(
   {
     title: {
-      type: 'string',
+      type: String,
     },
     description: {
-      type: 'string',
+      type: String,
     },
     sliderImg: {
-      type: 'string',
+      type: String,
       required: true,
     },
     createdBy: {

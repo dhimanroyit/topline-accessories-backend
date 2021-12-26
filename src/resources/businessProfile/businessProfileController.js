@@ -9,9 +9,7 @@ const createProfile = async (req, res, next) => {
     next(new BadRequest('business profile must be upload'));
   } else if (req.file) {
     console.log(req.file);
-    const profile = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.filename}`;
+    const profile = `/public/upload/${req.file.filename}`;
     console.log(profile);
     const profileBody = {
       ...req.body,
@@ -42,9 +40,7 @@ const updateProfile = async (req, res, next) => {
         if (businessProfile.profile) {
           removeUploadFile(businessProfile.profile);
         }
-        profile = `${req.protocol}://${req.get('host')}/api/v1/public/upload/${
-          req.file.filename
-        }`;
+        profile = `/public/upload/${req.file.filename}`;
       }
       return await model
         .findOneAndUpdate(

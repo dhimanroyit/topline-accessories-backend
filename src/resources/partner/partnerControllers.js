@@ -8,9 +8,7 @@ const createPartner = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('product image must be upload'));
   } else if (req.file) {
-    const partnerImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const partnerImg = `/public/upload/${req.file.originalname}`;
 
     const sliderBody = {
       ...req.body,
@@ -38,9 +36,7 @@ const updatePartner = async (req, res, next) => {
         if (partner.partnerImg) {
           removeUploadFile(partner.partnerImg);
         }
-        partnerImg = `${req.protocol}://${req.get(
-          'host'
-        )}/api/v1/public/upload/${req.file.originalname}`;
+        partnerImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

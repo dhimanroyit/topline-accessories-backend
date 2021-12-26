@@ -9,9 +9,7 @@ const createProduct = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('product image must be upload'));
   } else if (req.file) {
-    const productImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const productImg = `/public/upload/${req.file.originalname}`;
     const productBody = {
       ...req.body,
       productImg,
@@ -38,9 +36,7 @@ const updateProduct = async (req, res, next) => {
         if (product.productImg) {
           removeUploadFile(product.productImg);
         }
-        productImg = `${req.protocol}://${req.get(
-          'host'
-        )}/api/v1/public/upload/${req.file.originalname}`;
+        productImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

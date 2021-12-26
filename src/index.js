@@ -22,11 +22,11 @@ env.config();
 app.use(express.json());
 app.use(cors());
 
-const URI = '/api/v1';
+const URI = '/v1';
 
 app.use(`${URI}/public/upload`, express.static('uploads'));
 app.use(`${URI}/signin`, signIn);
-app.use(`${URI}/users`, userRouter);
+app.use(`${URI}/users`, protect, userRouter);
 app.use(`${URI}/callinfos`, callInfoRouter);
 app.use(`${URI}/socials`, socialRouter);
 app.use(`${URI}/sliders`, sliderRouter);

@@ -8,9 +8,7 @@ const createGalleryPhoto = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('gallery image must be upload'));
   } else if (req.file) {
-    const galleryImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const galleryImg = `/public/upload/${req.file.originalname}`;
     const galleryBody = {
       ...req.body,
       galleryImg,
@@ -37,9 +35,7 @@ const updateGalleryPhoto = async (req, res, next) => {
         if (gallery.galleryImg) {
           removeUploadFile(gallery.galleryImg);
         }
-        galleryImg = `${req.protocol}://${req.get(
-          'host'
-        )}/api/v1/public/upload/${req.file.originalname}`;
+        galleryImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

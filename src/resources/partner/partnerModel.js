@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const partnerSchema = new mongoose.Schema(
   {
     title: {
-      type: 'string',
+      type: String,
       required: true,
     },
     partnerImg: {
-      type: 'string',
+      type: String,
       required: true,
     },
     createdBy: {

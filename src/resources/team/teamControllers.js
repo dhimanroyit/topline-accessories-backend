@@ -8,9 +8,7 @@ const createTeam = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('team image must be upload'));
   } else if (req.file) {
-    const avatarImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const avatarImg = `/public/upload/${req.file.originalname}`;
 
     const teamBody = {
       ...req.body,
@@ -38,9 +36,7 @@ const updateTeam = async (req, res, next) => {
         if (team.avatarImg) {
           removeUploadFile(team.avatarImg);
         }
-        avatarImg = `${req.protocol}://${req.get(
-          'host'
-        )}/api/v1/public/upload/${req.file.originalname}`;
+        avatarImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

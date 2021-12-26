@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const teamControllers = new mongoose.Schema(
   {
     name: {
-      type: 'string',
+      type: String,
       required: true,
     },
     designation: {
-      type: 'string',
+      type: String,
       required: true,
     },
     avatarImg: {
-      type: 'string',
+      type: String,
       required: true,
     },
     phone: {
-      type: 'string',
+      type: String,
       required: true,
     },
     createdBy: {

@@ -8,9 +8,7 @@ const createAbout = async (req, res, next) => {
   if (!req.file) {
     next(new BadRequest('about image must be upload'));
   } else if (req.file) {
-    const aboutImg = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/public/upload/${req.file.originalname}`;
+    const aboutImg = `/public/upload/${req.file.originalname}`;
     const aboutBody = {
       ...req.body,
       aboutImg,
@@ -37,9 +35,7 @@ const updateAbout = async (req, res, next) => {
         if (about.aboutImg) {
           removeUploadFile(about.aboutImg);
         }
-        aboutImg = `${req.protocol}://${req.get('host')}/api/v1/public/upload/${
-          req.file.originalname
-        }`;
+        aboutImg = `/public/upload/${req.file.originalname}`;
       }
       return await model
         .findOneAndUpdate(

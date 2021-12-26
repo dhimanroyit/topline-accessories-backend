@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const aboutSchema = new mongoose.Schema(
   {
     title: {
-      type: 'string',
+      type: String,
       required: true,
     },
     description: {
-      type: 'string',
+      type: String,
       required: true,
     },
     aboutImg: {
-      type: 'string',
+      type: String,
       required: true,
     },
     createdBy: {
