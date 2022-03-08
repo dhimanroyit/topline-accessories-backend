@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const env = require('dotenv');
 const cors = require('cors');
@@ -45,8 +46,11 @@ app.get('/', (req, res, next) => {
 
 app.use(errorHandler);
 
+const server = http.createServer(app);
+
 dbConnect();
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });

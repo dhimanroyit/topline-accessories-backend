@@ -10,7 +10,7 @@ router
   .get(controllers.getAllProduct)
   .post(
     protect,
-    upload.single('productImg'),
+    upload.array('productImg', 10),
     uploadFile,
     controllers.createProduct
   );
@@ -20,7 +20,7 @@ router
   .get(controllers.getProduct)
   .put(
     protect,
-    upload.single('productImg'),
+    upload.array('productImg', 10),
     uploadFile,
     controllers.updateProduct
   )

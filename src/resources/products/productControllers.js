@@ -6,10 +6,13 @@ const BadRequest = require('../../utils/error/BadRequest');
 const _product = crudOperations(Product, 'product');
 
 const createProduct = async (req, res, next) => {
-  if (!req.file) {
+  if (!req.files) {
     next(new BadRequest('product image must be upload'));
-  } else if (req.file) {
-    const productImg = `/public/upload/${req.file.originalname}`;
+  } else if (req.files) {
+    const productFiles = [...req.files];
+    const productImg = productFiles.map((file) => {
+      return `/upload/${file.originalname}`;
+    });
     const productBody = {
       ...req.body,
       productImg,
@@ -31,12 +34,17 @@ const updateProduct = async (req, res, next) => {
   _product.updateOne(
     async (model) => {
       let productImg = null;
-      if (req.file?.originalname) {
+      if (req.files) {
         const product = await model.findById(req.params.id).lean().exec();
-        if (product.productImg) {
-          removeUploadFile(product.productImg);
+        if (product.productImg && Array.isArray(product.productImg)) {
+          product.productImg.forEach((img) => {
+            removeUploadFile(img);
+          });
         }
-        productImg = `/public/upload/${req.file.originalname}`;
+        const productFiles = [...req.files];
+        productImg = productFiles.map((file) => {
+          return `/upload/${file.originalname}`;
+        });
       }
       return await model
         .findOneAndUpdate(
@@ -59,8 +67,10 @@ const removeProduct = async (req, res, next) => {
         .findOneAndRemove({ _id: req.params.id })
         .lean()
         .exec();
-      if (removeProduct.productImg) {
-        removeUploadFile(removeProduct.productImg);
+      if (removeProduct.productImg && Array.isArray(removeProduct.productImg)) {
+        removeProduct.productImg.forEach((img) => {
+          removeUploadFile(img);
+        });
       }
       return removeProduct;
     },

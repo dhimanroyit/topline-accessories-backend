@@ -11,7 +11,7 @@ const uploadSingleFile = async (reqFile, next) => {
     reqFile.originalname = convertFileNameWebpExt(originalname);
     const webpBuffer = await sharp(buffer).webp().toBuffer();
     await sharp(webpBuffer)
-      .webp({ quality: 20 })
+      .webp({ quality: 80 })
       .toFile(`${process.env.UPLOAD_FOLDER}${reqFile.originalname}`);
   } catch (err) {
     next(err);
