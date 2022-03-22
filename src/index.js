@@ -20,6 +20,7 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 env.config();
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
@@ -51,6 +52,4 @@ const server = http.createServer(app);
 dbConnect();
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
-});
+server.listen();
